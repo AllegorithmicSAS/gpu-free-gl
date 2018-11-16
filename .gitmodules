@@ -1,0 +1,15 @@
+[submodule "src/mesa"]
+	path = src/mesa
+	url = https://github.com/mesa3d/mesa.git
+[submodule "src/llvm"]
+	path = src/llvm
+	url = https://github.com/llvm-mirror/llvm.git
+[submodule "src/xorgbuild"]
+	path = src/xorgbuild
+	url = git://anongit.freedesktop.org/git/xorg/util/modular
+[submodule "src/glproto"]
+	path = src/glproto
+	url = git://anongit.freedesktop.org/git/xorg/proto/glproto
+[submodule "src/glu"]
+	path = src/glu
+	url = https://gitlab.freedesktop.org/mesa/glu.git
