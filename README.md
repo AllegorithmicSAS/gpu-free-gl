@@ -10,9 +10,9 @@ free and it might need some external dependencies to build cleanly, the main foc
 and mesa.
 
 ## Libraries
-LLVM: Needed for mesa with high performant CPU support
-Xorg: Xserver needed for sbsbaker to start properly
-mesa: OpenGL libraries
+* LLVM: Needed for mesa with high performant CPU support
+* Xorg: Xserver needed for sbsbaker to start properly
+* mesa: OpenGL libraries
 
 ## Building
 * Clone the repository and initialize and update submodules
@@ -54,6 +54,7 @@ export LD_LIBRARY_PATH=<ROOT>/install/install:$LD_LIBRARY_PATH
 
 Next you need to start the xserver
 ```
+cd scripts
 ./start.sh &
 export DISPLAY=:200
 ```
@@ -67,7 +68,7 @@ If you get some nasty warnings about keyboard settings, please set this environm
 ```
 export QT_XKB_CONFIG_ROOT=<ROOT>/install/share/X11/xkb
 ```
-You can also experiment with different drivers for mesha:
+You can also experiment with different drivers for mesa:
 ```
 export GALLIUM_DRIVER=llvmpipe # This is most likely what you want to use
 export GALLIUM_DRIVER=swr # This one is supposed to be faster than llvm pipe but it doesn't seem to give correct results
@@ -85,8 +86,9 @@ make install
 ```
 Make sure you are careful with the prefix so you don't overwrite your old libraries and use 
 LD_LIBRARY_PATH to have these libraries chosen before the out of the box libraries. This process
-is also dependent on LLVM so install or build it before building mesa. The process is described
-in detail here:
+is also dependent on LLVM so install or build it before building mesa. 
+
+The process is described in detail here:
 http://openswr.org/build-linux.html
 
 ## Future
