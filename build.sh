@@ -3,9 +3,10 @@ set -e
 mkdir -p build
 mkdir -p build/llvm
 mkdir -p build/mesa
-#mkdir -p build/xorg-p2
-mkdir -p build/freetype
 mkdir -p build/glu
+mkdir -p build/xorg
+mkdir -p build/glproto
+
 
 export PATH=$PATH:$(pwd)/install/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/install/lib
