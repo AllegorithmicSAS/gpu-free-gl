@@ -13,7 +13,7 @@ export PATH=$PATH:$(pwd)/install/bin
 export LD_LIBRARY_PATH=$(pwd)/install/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 export C_INCLUDE_PATH=$(pwd)/install/include:$(pwd)/install/include/libdrm${C_INCLUDE_PATH:+:$C_INCLUDE_PATH}
 export CPLUS_INCLUDE_PATH=$(pwd)/install/include:$(pwd)/install/include/libdrm${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$(pwd)/install/lib/pkgconfig:$(pwd)/install/share/pkgconfig
+export PKG_CONFIG_PATH=$(pwd)/install/lib/pkgconfig:$(pwd)/install/share/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
 export ACLOCAL="aclocal -I $(pwd)/install/share/aclocal"
 
 # Build llvm
@@ -67,6 +67,7 @@ make install -j2
 
 # Build more xorg libraries
 cd ../xorg
+../../src/xorgbuild/build.sh --clone -o app/xkbcomp
 ../../src/xorgbuild/build.sh --clone -o font/util
 ../../src/xorgbuild/build.sh --clone --confflags "--disable-dri --disable-dri2 --disable-dri3 --disable-glamor" -o xserver
 ../../src/xorgbuild/build.sh --clone -o driver/xf86-video-dummy
@@ -74,6 +75,5 @@ cd ../xorg
 ../../src/xorgbuild/build.sh --clone -o driver/xf86-input-void
 ../../src/xorgbuild/build.sh --clone -o driver/xf86-input-keyboard
 ../../src/xorgbuild/build.sh --clone -o xkeyboard-config
-../../src/xorgbuild/build.sh --clone -o app/xkbcomp
 ../../src/xorgbuild/build.sh --clone -o xcb/xcb-proto
 ../../src/xorgbuild/build.sh --clone -o lib/libXi
