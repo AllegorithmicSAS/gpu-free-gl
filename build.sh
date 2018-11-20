@@ -69,7 +69,7 @@ make install -j2
 cd ../xorg
 ../../src/xorgbuild/build.sh --clone -o app/xkbcomp
 ../../src/xorgbuild/build.sh --clone -o font/util
-../../src/xorgbuild/build.sh --clone --confflags "--disable-dri --disable-dri2 --disable-dri3 --disable-glamor" -o xserver
+../../src/xorgbuild/build.sh --clone --confflags "--disable-dri --disable-dri2 --disable-dri3 --disable-glamor --with-xkb-bin-directory=\"\"" -o xserver
 ../../src/xorgbuild/build.sh --clone -o driver/xf86-video-dummy
 ../../src/xorgbuild/build.sh --clone -o lib/libxkbfile
 ../../src/xorgbuild/build.sh --clone -o driver/xf86-input-void
