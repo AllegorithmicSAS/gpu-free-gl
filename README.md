@@ -1,8 +1,8 @@
 # gpu-free-gl
 
 ## Overview
-This project provides build scripts for creating a set of tools and libraries that makes sbsrender 
-run properly on a machine without a GPU and no rebuilding of the binary.
+This project provides build scripts for creating a set of tools and libraries that makes sbsbaker 
+run properly on a linux machine without a GPU using no custom sbsbaker executable.
 Essentially it builds a small version of xorg and a mesa with a cpu driver and a configuration 
 for running xorg in offscreen mode.
 It checks out all needed modules from git and builds them for you. It's not completely dependency 
@@ -23,7 +23,9 @@ git submodule init
 git submodule update
 ```
 
-When all the data has been synced, make sure you set up the correct build environment for compatible libraries
+When all the data has been synced, make sure you set up the correct build environment for compatible libraries. 
+In centos the setup of choices is devtoolset-7. The project has also been
+successfully built using clang.
 ```
 scl enable devtoolset-7 bash
 ```

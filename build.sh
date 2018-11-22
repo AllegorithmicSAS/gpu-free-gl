@@ -44,6 +44,7 @@ cd ../xorg
 ../../src/xorgbuild/build.sh --clone -o lib/libxkbfile
 ../../src/xorgbuild/build.sh --clone -o lib/libfontenc
 ../../src/xorgbuild/build.sh --clone -o lib/libXfont
+../../src/xorgbuild/build.sh --clone -o lib/libXxf86vm
 ../../src/xorgbuild/build.sh --clone -o mesa/drm
 ../../src/xorgbuild/build.sh --clone -o mesa/mesa
 
