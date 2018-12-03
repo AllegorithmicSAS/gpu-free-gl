@@ -6,47 +6,27 @@ mkdir -p build/mesa
 mkdir -p build/glu
 mkdir -p build/xorg
 mkdir -p build/glproto
-
+mkdir -p build/libexpat
 
 export PREFIX=$(pwd)/install
 export PATH=$PATH:$(pwd)/install/bin
-export LD_LIBRARY_PATH=$(pwd)/install/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=$(pwd)/install/lib:$(pwd)/install/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 export C_INCLUDE_PATH=$(pwd)/install/include:$(pwd)/install/include/libdrm${C_INCLUDE_PATH:+:$C_INCLUDE_PATH}
 export CPLUS_INCLUDE_PATH=$(pwd)/install/include:$(pwd)/install/include/libdrm${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}
-export PKG_CONFIG_PATH=$(pwd)/install/lib/pkgconfig:$(pwd)/install/share/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
-export ACLOCAL="aclocal -I $(pwd)/install/share/aclocal"
+export PKG_CONFIG_PATH=$(pwd)/install/lib/pkgconfig:$(pwd)/install/share/pkgconfig:$(pwd)/install/lib64/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
 
 # Build llvm
 cd build/llvm
 cmake ../../src/llvm -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1 -DLLVM_ENABLE_RTTI=1 -DLLVM_TARGETS_TO_BUILD="X86\;AMDGPU"
 make install -j2
 
+cd ../libexpat
+cmake ../../src/libexpat/expat -DCMAKE_INSTALL_PREFIX=$PREFIX
+make install -j2
+
 # Build an initial set of xorg libraries
 cd ../xorg
-../../src/xorgbuild/build.sh --clone -o util/macros
-../../src/xorgbuild/build.sh --clone -o font/util
-../../src/xorgbuild/build.sh --clone -o lib/libxtrans
-../../src/xorgbuild/build.sh --clone -o xcb/proto
-../../src/xorgbuild/build.sh --clone -o proto/xorgproto
-../../src/xorgbuild/build.sh --clone -o lib/libXau
-../../src/xorgbuild/build.sh --clone -o xcb/pthread-stubs
-../../src/xorgbuild/build.sh --clone -o xcb/libxcb
-../../src/xorgbuild/build.sh --clone -o xcb/util-keysyms
-../../src/xorgbuild/build.sh --clone -o lib/libX11
-../../src/xorgbuild/build.sh --clone -o lib/libXext
-../../src/xorgbuild/build.sh --clone -o lib/libXfixes
-../../src/xorgbuild/build.sh --clone -o lib/libXdamage
-../../src/xorgbuild/build.sh --clone -o lib/libxshmfence
-../../src/xorgbuild/build.sh --clone -o lib/libXrender
-../../src/xorgbuild/build.sh --clone -o lib/libXrandr
-../../src/xorgbuild/build.sh --clone -o pixman
-../../src/xorgbuild/build.sh --clone -o lib/libpciaccess
-../../src/xorgbuild/build.sh --clone -o lib/libxkbfile
-../../src/xorgbuild/build.sh --clone -o lib/libfontenc
-../../src/xorgbuild/build.sh --clone -o lib/libXfont
-../../src/xorgbuild/build.sh --clone -o lib/libXxf86vm
 ../../src/xorgbuild/build.sh --clone -o mesa/drm
-../../src/xorgbuild/build.sh --clone -o mesa/mesa
 
 # Build gl proto
 cd ../glproto
@@ -66,15 +46,4 @@ cd ../glu
 ../../src/glu/configure --prefix=$PREFIX
 make install -j2
 
-# Build more xorg libraries
-cd ../xorg
-../../src/xorgbuild/build.sh --clone -o app/xkbcomp
-../../src/xorgbuild/build.sh --clone -o font/util
-../../src/xorgbuild/build.sh --clone --confflags "--disable-dri --disable-dri2 --disable-dri3 --disable-glamor --with-xkb-bin-directory=\"\"" -o xserver
-../../src/xorgbuild/build.sh --clone -o driver/xf86-video-dummy
-../../src/xorgbuild/build.sh --clone -o lib/libxkbfile
-../../src/xorgbuild/build.sh --clone -o driver/xf86-input-void
-../../src/xorgbuild/build.sh --clone -o driver/xf86-input-keyboard
-../../src/xorgbuild/build.sh --clone -o xkeyboard-config
-../../src/xorgbuild/build.sh --clone -o xcb/xcb-proto
-../../src/xorgbuild/build.sh --clone -o lib/libXi
+

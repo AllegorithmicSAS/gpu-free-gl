@@ -13,3 +13,6 @@
 [submodule "src/glu"]
 	path = src/glu
 	url = https://gitlab.freedesktop.org/mesa/glu.git
+[submodule "src/libexpat"]
+	path = src/libexpat
+	url = https://github.com/libexpat/libexpat.git
